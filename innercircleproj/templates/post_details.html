@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% set messages = get_flashed_messages() %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+{% endfor %}
+{% endif %}
+
+
+{{post.title}}<br><br>
+{{post.text}}<br><br>
+
+{% if current_user.is_authenticated and current_user.id == post.author.id %}
+
+<a href="{{url_for('post.edit_post', post_id = post.id)}}">Edit</a>&nbsp&nbsp<a href="{{url_for('post.delete_post', post_id = post.id)}}">Delete</a>
+
+{% endif %}
+
+{% endblock %}

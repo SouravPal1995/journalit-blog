@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% set messages = get_flashed_messages() %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+{% endfor %}
+
+{% endif %}
+
+
+<div align = 'center'>
+  <img src="{{ profile_picture }}"><br>
+  {{current_user.name}}<br>
+  {{current_user.email}}
+  <div>
+    <form method = 'POST' enctype="multipart/form-data">
+      {{form.hidden_tag()}}
+      {{form.name.label}}<br>
+      {{form.name()}}<br>
+      {% set alerts=form.name.errors %}
+
+      {% if alerts %}
+      {% for alert in alerts %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ alert }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {{form.email.label}}<br>
+      {{form.email()}}<br><br>
+      {% set alerts=form.email.errors %}
+
+      {% if alerts %}
+      {% for alert in alerts %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ alert }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {{form.profile_pic()}}<br><br>
+      {% set alerts=form.profile_pic.errors %}
+
+      {% if alerts %}
+      {% for alert in alerts %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ alert }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {{form.submit()}}
+    </form>
+  </div>
+</div>
+
+
+
+{% endblock %}

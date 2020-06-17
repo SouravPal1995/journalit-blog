@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% set messages = get_flashed_messages() %}
+
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+{% endfor %}
+
+{% endif %}
+
+{% if all_posts %}
+
+{% for post in all_posts %}
+
+
+
+<a href="{{url_for('post.view_post', post_id = post.id)}}">{{ post.title }} by {{ post.author.name }}</a><br><br>
+
+
+
+
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}
