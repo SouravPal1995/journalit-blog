@@ -3,6 +3,7 @@ from innercircleproj import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from innercircleproj import login_manager
+import datetime as dt
 
 class User(db.Model, UserMixin):
     __tablename__="User"
@@ -28,8 +29,9 @@ class Post(db.Model, UserMixin):
     __tablename__="Post"
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120))
-    text = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey("User.id"))
+    text = db.Column(db.Text, nullable = False)
+    date = db.Column(db.DateTime, nullable = False, default = dt.datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable = False)
     
     def __init__(self, title, text, user_id):
         self.title = title

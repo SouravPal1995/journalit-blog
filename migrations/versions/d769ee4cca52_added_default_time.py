@@ -1,8 +1,8 @@
-"""Hello
+"""Added default time
 
-Revision ID: fa99f649633d
+Revision ID: d769ee4cca52
 Revises: 
-Create Date: 2020-06-18 00:57:12.174434
+Create Date: 2020-06-19 07:14:54.649381
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fa99f649633d'
+revision = 'd769ee4cca52'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,8 +32,9 @@ def upgrade():
     op.create_table('Post',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=120), nullable=True),
-    sa.Column('text', sa.Text(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('text', sa.Text(), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['User.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
