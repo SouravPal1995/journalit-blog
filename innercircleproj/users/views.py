@@ -3,7 +3,7 @@ import os
 import secrets
 from flask import Blueprint, url_for, redirect, render_template, request, flash, current_app
 from innercircleproj.users.forms import Registration, Login, UpdateUser
-from innercircleproj.models import User
+from innercircleproj.models import User, Post
 from innercircleproj import db
 from innercircleproj import login_manager
 from flask_login import login_required, login_user, logout_user, current_user
@@ -78,6 +78,14 @@ def account():
         return redirect(url_for('user.account'))
     profile_picture = url_for("static", filename="profile_pics/"+current_user.profile_pic)
     return render_template('account.html', profile_picture = profile_picture, form  = form)
+
+@user_bp.route('/posts/<string:username>')
+def user_post(username):
+    user = User.query.filter_by(name = username).first_or_404()
+    page = request.args.get('page', 1)
+    all_posts = Post.query.filter_by(author=user).order_by(Post.date.desc()).paginate(page = int(page), per_page = 5)
+    return render_template('user_post.html', all_posts = all_posts, user = user)
+    
 
 
 

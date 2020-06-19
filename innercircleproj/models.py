@@ -30,7 +30,7 @@ class Post(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120))
     text = db.Column(db.Text, nullable = False)
-    date = db.Column(db.DateTime, nullable = False, default = dt.datetime.utcnow)
+    date = db.Column(db.DateTime, nullable = False, default = dt.datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable = False)
     
     def __init__(self, title, text, user_id):

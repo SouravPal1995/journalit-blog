@@ -20,11 +20,13 @@
 
 {% if all_posts %}
 
+<h1>Posts by {{user.name}}</h1>
+
 {% for post in all_posts.items %}
 
 
 
-<a href="{{url_for('post.view_post', post_id = post.id)}}">{{ post.title }}</a> Posted by <a href = "{{url_for('user.user_post', username=post.author.name)}}">{{ post.author.name }}</a> posted on {{post.date.strftime("%Y-%m-%d")}} at {{post.date.strftime("%I:%M %p")}}<br><br>
+<a href="{{url_for('post.view_post', post_id = post.id)}}">{{ post.title }}</a> Posted by {{ post.author.name }} posted on {{post.date.strftime("%Y-%m-%d")}} at {{post.date.strftime("%I:%M %p")}}<br><br>
 
 
 
